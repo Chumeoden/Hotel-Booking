@@ -21,14 +21,12 @@ class CategoryController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
-
     public function create()
     {
         abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.categories.create');
     }
-
     public function store(CategoryRequest $request)
     {
         abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -41,14 +39,12 @@ class CategoryController extends Controller
         ]);
     }
 
-
     public function edit(Category $category)
     {
         abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.categories.edit', compact('category'));
     }
-
 
     public function update(CategoryRequest $request, Category $category)
     {
@@ -62,6 +58,7 @@ class CategoryController extends Controller
         ]);
     }
 
+
     public function destroy(Category $category)
     {
         abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -74,11 +71,7 @@ class CategoryController extends Controller
         ]);
     }
 
-        /**
-     * Delete all selected Permission at once.
-     *
-     * @param Request $request
-     */
+
     public function massDestroy(Request $request)
     {
         abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
