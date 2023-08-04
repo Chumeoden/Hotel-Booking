@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\HomeController;
 
 
 
@@ -25,6 +26,10 @@ Route::get('login', function () {
 Route::get('/', function () {
     return view('home');
 });
+
+
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['isAdmin','auth'],'prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard.index');

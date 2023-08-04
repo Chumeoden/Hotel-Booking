@@ -194,18 +194,28 @@ a:hover {
                                 </div>
                         </div>
                 </div>
+
+
+
+
                 <div class="row">
                         <!-- Single Product -->
+
+                        @foreach ($rooms as $room)
                         <div class="col-md-6 col-lg-4 col-xl-3">
                                 <div id="product-1" class="single-product">
                                         <div class="part-1">
                                                 <ul>
-                                                            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-                                                            <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fas fa-plus"></i></a></li>
-                                                            <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                                                            <li><a href="#"><i class="fas fa-shopping-cart"></i>   aaaaaaa </a></li>
+                                                            <li><a href="#"><i class="fas fa-heart"></i> bbbbbbbb</a></li>
+                                                            <li><a href="#"><i class="fas fa-plus"></i>ccccccc</a></li>
+                                                            <li><a href="#"><i class="fas fa-expand"></i>dddddddd</a></li>
                                                 </ul>
                                         </div>
+                                        <h3>{{ $room->floor }}</h3>
+        <p>{{ $room->description }}</p>
+        <img src="{{ asset('storage/' . $room->image) }}" alt="Ảnh phòng">
+                                        @endforeach 
                                         <div class="part-2">
                                                 <h3 class="product-title">Here Product Title</h3>
                                                 <h4 class="product-old-price">$79.99</h4>
@@ -213,7 +223,10 @@ a:hover {
                                         </div>
                                 </div>
                         </div>
-                        <!-- Single Product -->
+                
+
+<!-- 
+
                         <div class="col-md-6 col-lg-4 col-xl-3">
                                 <div id="product-2" class="single-product">
                                         <div class="part-1">
@@ -231,7 +244,9 @@ a:hover {
                                         </div>
                                 </div>
                         </div>
-                        <!-- Single Product -->
+
+
+                     
                         <div class="col-md-6 col-lg-4 col-xl-3">
                                 <div id="product-3" class="single-product">
                                         <div class="part-1">
@@ -249,7 +264,10 @@ a:hover {
                                         </div>
                                 </div>
                         </div>
-                        <!-- Single Product -->
+
+                        
+
+
                         <div class="col-md-6 col-lg-4 col-xl-3">
                                 <div id="product-4" class="single-product">
                                         <div class="part-1">
@@ -266,7 +284,7 @@ a:hover {
                                                 <h4 class="product-price">$49.99</h4>
                                         </div>
                                 </div>
-                        </div>
+                        </div> -->
 
                 </div>
         </div>

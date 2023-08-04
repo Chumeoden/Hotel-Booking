@@ -19,7 +19,8 @@
 @include('Home.model')
 @include('Home.header')
 @include('Home.section') 
-@include('Home.section2')   
+
+
 @include('Home.footer')  
 
 
