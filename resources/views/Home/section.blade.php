@@ -68,27 +68,8 @@
       color: #666;
     }
 
-    /* Drop-up frame styles */
-    .dropup-content {
-      display: none;
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1020px;
-      height: 720px;
-      background-color: #f9f9f9;
-      padding: 10px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-    }
-
-    .room-card.show-dropup .dropup-content {
-      display: block;
-    }
-
-    .enlarged-dropup-content {
+    /* Add styles for the model */
+    .modal {
       display: none;
       position: fixed;
       top: 0;
@@ -101,11 +82,7 @@
       z-index: 2;
     }
 
-    .room-card.show-enlarged-dropup .enlarged-dropup-content {
-      display: flex;
-    }
-
-    .enlarged-content {
+    .modal-content {
       background-color: #fff;
       padding: 20px;
       border-radius: 5px;
@@ -114,59 +91,93 @@
       max-height: 90%;
       overflow: auto;
     }
+    /* Add styles for the "Book" button */
+    .book-button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      padding: 10px 20px;
+      background-color: #00a0e9;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 240px;
+      height: 70px;
+    }
+
+    .book-button:hover {
+      background-color: #0075b3;
+    }
+    .room_type{
+        
+    }
+
   </style>
 </head>
 <body>
   <!-- Room Listing -->
+  <div class="room_type"><h2>Hot Rooms</h2></div>
   <div class="room-container">
-
-  @foreach ($rooms as $room)
-    <div class="room-card" onclick="toggleDropup(this)">
-      <img src="{{ asset('storage/' . $room->image) }}" alt="Room Image">
-      <div class="room-info">
-        <span class="room-number">Room number: {{ $room->room_number }}</span>
-        <span class="room-floor">Floor: {{ $room->floor }}</span>
-        <p class="room-description">Description: {{ $room->description }}</p>
-        <span class="room-price">Price: ${{ $room->price }}</span>
-        <span class="room-capacity">Capacity: {{ $room->capacity }}</span>
+    @foreach ($rooms as $room)
+      <div class="room-card" onclick="showModel(this)">
+        <img src="{{ asset('storage/' . $room->image) }}" alt="Room Image">
+        <div class="room-info">
+          <span class="room-number">Room number: {{ $room->room_number }}</span>
+          <span class="room-floor">Floor: {{ $room->floor }}</span>
+          <p class="room-description">Description: {{ $room->description }}</p>
+          <span class="room-price">Price: ${{ $room->price }}</span>
+          <span class="room-capacity">Capacity: {{ $room->capacity }}</span>
+        </div>
       </div>
-      <!-- Drop-up content -->
-      <div class="dropup-content">
-      <img src="{{ asset('storage/' . $room->image) }}" alt="Room Image">
-      <div class="room-info">
-        <span class="room-number">Room number: {{ $room->room_number }}</span>
-        <span class="room-floor">Floor: {{ $room->floor }}</span>
-        <p class="room-description">Description: {{ $room->description }}</p<span class="room-price">Price: ${{ $room->price }}</span>
-        <span class="room-capacity">Capacity: {{ $room->capacity }}</span>
-      </div>
-        <button onclick="showEnlargedDropup(this)">View More Details</button>
-      </div>
-    </div>
-  @endforeach
-
+    @endforeach
   </div>
 
-  <!-- Enlarged Drop-up Content -->
-  <div class="enlarged-dropup-content" onclick="hideEnlargedDropup(this)">
-    <div class="enlarged-content">
-      <!-- Add your enlarged drop-up content here -->
-      <h2>Enlarged Drop-up Content</h2>
-      <p>This is the enlarged drop-up content with more details about the product.</p>
+  <div class="modal" onclick="hideModal()">
+    <div class="modal-content">
+      <img src="{{ asset('storage/' . $room->image) }}" alt="Room Image">
+      <h2 id="modal-title">Room number</h2>
+      <p id="modal-description">Description: </p>
+      <p id="modal-floor">Floor: </p>
+      <span id="modal-price">Price: $0</span>
+      <span id="modal-capacity">Capacity: 0</span>
+
+      <!-- Add the "Book" button -->
+      <button class="book-button">Book Now</button>
     </div>
   </div>
 
   <script>
-    function toggleDropup(roomCard) {
-      roomCard.classList.toggle('show-dropup');
+    function showModel(roomCard) {const modal = document.querySelector('.modal');
+      const modalContent = modal.querySelector('.modal-content');
+
+      // Get room details from the clicked room card
+      const roomInfo = roomCard.querySelector('.room-info');
+      const roomNumber = roomInfo.querySelector('.room-number').innerText;
+      const roomDescription = roomInfo.querySelector('.room-description').innerText;
+      const roomFloor = roomInfo.querySelector('.room-floor').innerText;
+      const roomPrice = roomInfo.querySelector('.room-price').innerText;
+      const roomCapacity = roomInfo.querySelector('.room-capacity').innerText;
+
+      // Set room details in the modal
+      const modalTitle = modalContent.querySelector('#modal-title');
+      const modalDescription = modalContent.querySelector('#modal-description');
+      const modalFloor = modalContent.querySelector('#modal-floor');
+      const modalPrice = modalContent.querySelector('#modal-price');
+      const modalCapacity = modalContent.querySelector('#modal-capacity');
+
+      modalTitle.innerText = roomNumber;
+      modalDescription.innerText = 'Description: ' + roomDescription;
+      modalFloor.innerText = 'Floor: ' + roomFloor;
+      modalPrice.innerText = roomPrice;
+      modalCapacity.innerText = roomCapacity;
+
+      modal.style.display = 'flex';
     }
 
-    function showEnlargedDropup(button) {
-      const roomCard = button.closest('.room-card');
-      roomCard.classList.add('show-enlarged-dropup');
-    }
-
-    function hideEnlargedDropup(enlargedDropupContent) {
-      enlargedDropupContent.classList.remove('show-enlarged-dropup');
+    function hideModal() {
+      const modal = document.querySelector('.modal');
+      modal.style.display = 'none';
     }
   </script>
 </body>
