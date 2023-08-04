@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ImageController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,5 +52,7 @@ Route::group(['middleware' => ['isAdmin','auth'],'prefix' => 'admin', 'as' => 'a
     Route::get('system_calendars', [\App\Http\Controllers\Admin\SystemCalendarController::class, 'index'])->name('system_calendars.index');
 });
 
+
+Route::get('images/{filename}', [ImageController::class, 'show']);
 Auth::routes();
 

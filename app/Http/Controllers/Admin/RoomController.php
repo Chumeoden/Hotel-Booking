@@ -45,8 +45,14 @@ class RoomController extends Controller
     
         // Xử lý tải ảnh và lưu tên tệp vào cơ sở dữ liệu
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('rooms', 'public');
-            $room->image = $imagePath;
+            // $imagePath = $request->file('image')->store('', 'public');
+
+            $file = $request->file('image');
+
+        // Store the file in the public disk
+        $path = Storage::disk('public')->putFile('', $file);
+            
+            $room->image = $path;
             $room->save();
         }
     
