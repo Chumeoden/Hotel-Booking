@@ -1,298 +1,173 @@
-
 <!DOCTYPE html>
-<html lang="en" >
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Listing</title>
+  <style>
+    /* CSS styles go here */
+    .room-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 1950px;
+      height: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: center;
+      align-items: center;
+    }
 
- 
-  <title>#</title>
+    .room-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+    }
 
-  
-  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
-  
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+    .room-card img {
+      max-width: 150px;
+      max-height: 150px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
 
-body {
-    font-family: "Poppins", sans-serif;
-    color: #444444;
-}
+    .room-info {
+      text-align: center;
+    }
 
-a,
-a:hover {
-    text-decoration: none;
-    color: inherit;
-}
+    .room-number {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
 
-.section-products {
-    padding: 80px 0 54px;
-}
+    .room-floor {
+      font-size: 14px;
+      color: #666;
+    }
 
-.section-products .header {
-    margin-bottom: 50px;
-}
+    .room-description {
+      font-size: 16px;
+      color: #333;
+    }
 
-.section-products .header h3 {
-    font-size: 1rem;
-    color: #fe302f;
-    font-weight: 500;
-}
+    .room-price {
+      font-size: 16px;
+      color: #00a0e9;
+      font-weight: bold;
+    }
 
-.section-products .header h2 {
-    font-size: 2.2rem;
-    font-weight: 400;
-    color: #444444; 
-}
+    .room-capacity {
+      font-size: 14px;
+      color: #666;
+    }
 
-.section-products .single-product {
-    margin-bottom: 26px;
-}
+    /* Drop-up frame styles */
+    .dropup-content {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1020px;
+      height: 720px;
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
 
-.section-products .single-product .part-1 {
-    position: relative;
-    height: 290px;
-    max-height: 290px;
-    margin-bottom: 20px;
-    overflow: hidden;
-}
+    .room-card.show-dropup .dropup-content {
+      display: block;
+    }
 
-.section-products .single-product .part-1::before {
-        position: absolute;
-        content: "";
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        transition: all 0.3s;
-}
+    .enlarged-dropup-content {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
 
-.section-products .single-product:hover .part-1::before {
-        transform: scale(1.2,1.2) rotate(5deg);
-}
+    .room-card.show-enlarged-dropup .enlarged-dropup-content {
+      display: flex;
+    }
 
-.section-products #product-1 .part-1::before {
-    background: url("https://cdn.suwalls.com/wallpapers/photography/beautiful-hotel-room-54456-1920x1200.jpg") no-repeat center;
-    background-size: cover;
-        transition: all 0.3s;
-}
+    .enlarged-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      max-width: 800px;
+      max-height: 90%;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Room Listing -->
+  <div class="room-container">
 
-.section-products #product-2 .part-1::before {
-    background: url("https://www.thewallpapers.org/photo/26510/Image-1.jpg") no-repeat center;
-    background-size: cover;
-}
+  @foreach ($rooms as $room)
+    <div class="room-card" onclick="toggleDropup(this)">
+      <img src="{{ asset('storage/' . $room->image) }}" alt="Room Image">
+      <div class="room-info">
+        <span class="room-number">Room number: {{ $room->room_number }}</span>
+        <span class="room-floor">Floor: {{ $room->floor }}</span>
+        <p class="room-description">Description: {{ $room->description }}</p>
+        <span class="room-price">Price: ${{ $room->price }}</span>
+        <span class="room-capacity">Capacity: {{ $room->capacity }}</span>
+      </div>
+      <!-- Drop-up content -->
+      <div class="dropup-content">
+      <img src="{{ asset('storage/' . $room->image) }}" alt="Room Image">
+      <div class="room-info">
+        <span class="room-number">Room number: {{ $room->room_number }}</span>
+        <span class="room-floor">Floor: {{ $room->floor }}</span>
+        <p class="room-description">Description: {{ $room->description }}</p<span class="room-price">Price: ${{ $room->price }}</span>
+        <span class="room-capacity">Capacity: {{ $room->capacity }}</span>
+      </div>
+        <button onclick="showEnlargedDropup(this)">View More Details</button>
+      </div>
+    </div>
+  @endforeach
 
-.section-products #product-3 .part-1::before {
-    background: url("https://i.pinimg.com/originals/74/08/75/740875c961653d15a533a627c55b567f.jpg") no-repeat center;
-    background-size: cover;
-}
+  </div>
 
-.section-products #product-4 .part-1::before {
-    background: url("https://images.rosewoodhotels.com/is/image/rwhg/louloua-room") no-repeat center;
-    background-size: cover;
-}
-
-.section-products .single-product .part-1 .discount,
-.section-products .single-product .part-1 .new {
-    position: absolute;
-    top: 15px;
-    left: 20px;
-    color: #ffffff;
-    background-color: #fe302f;
-    padding: 2px 8px;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-}
-
-.section-products .single-product .part-1 .new {
-    left: 0;
-    background-color: #444444;
-}
-
-.section-products .single-product .part-1 ul {
-    position: absolute;
-    bottom: -41px;
-    left: 20px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    opacity: 0;
-    transition: bottom 0.5s, opacity 0.5s;
-}
-
-.section-products .single-product:hover .part-1 ul {
-    bottom: 30px;
-    opacity: 1;
-}
-
-.section-products .single-product .part-1 ul li {
-    display: inline-block;
-    margin-right: 4px;
-}
-
-.section-products .single-product .part-1 ul li a {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    background-color: #ffffff;
-    color: #444444;
-    text-align: center;
-    box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
-    transition: color 0.2s;
-}
-
-.section-products .single-product .part-1 ul li a:hover {
-    color: #fe302f;
-}
-
-.section-products .single-product .part-2 .product-title {
-    font-size: 1rem;
-}
-
-.section-products .single-product .part-2 h4 {
-    display: inline-block;
-    font-size: 1rem;
-}
-
-.section-products .single-product .part-2 .product-old-price {
-    position: relative;
-    padding: 0 7px;
-    margin-right: 2px;
-    opacity: 0.6;
-}
-
-.section-products .single-product .part-2 .product-old-price::after {
-    position: absolute;
-    content: "";
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: #444444;
-    transform: translateY(-50%);
-}
-</style>
+  <!-- Enlarged Drop-up Content -->
+  <div class="enlarged-dropup-content" onclick="hideEnlargedDropup(this)">
+    <div class="enlarged-content">
+      <!-- Add your enlarged drop-up content here -->
+      <h2>Enlarged Drop-up Content</h2>
+      <p>This is the enlarged drop-up content with more details about the product.</p>
+    </div>
+  </div>
 
   <script>
-  window.console = window.console || function(t) {};
-</script>
+    function toggleDropup(roomCard) {
+      roomCard.classList.toggle('show-dropup');
+    }
 
-  
-  
-</head>
+    function showEnlargedDropup(button) {
+      const roomCard = button.closest('.room-card');
+      roomCard.classList.add('show-enlarged-dropup');
+    }
 
-<body translate="no">
-  <section class="section-products">
-        <div class="container">
-                <div class="row justify-content-center text-center">
-                        <div class="col-md-8 col-lg-6">
-                                <div class="header">
-                                        <h2>Hot Rooms</h2>
-                                </div>
-                        </div>
-                </div>
-
-
-
-
-                <div class="row">
-                        <!-- Single Product -->
-
-                        @foreach ($rooms as $room)
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-1" class="single-product">
-                                        <div class="part-1">
-                                                <ul>
-                                                            <li><a href="#"><i class="fas fa-shopping-cart"></i>   aaaaaaa </a></li>
-                                                            <li><a href="#"><i class="fas fa-heart"></i> bbbbbbbb</a></li>
-                                                            <li><a href="#"><i class="fas fa-plus"></i>ccccccc</a></li>
-                                                            <li><a href="#"><i class="fas fa-expand"></i>dddddddd</a></li>
-                                                </ul>
-                                        </div>
-                                        <h3>{{ $room->floor }}</h3>
-        <p>{{ $room->description }}</p>
-        <img src="{{ asset('storage/' . $room->image) }}" alt="Ảnh phòng">
-                                        @endforeach 
-                                        <div class="part-2">
-                                                <h3 class="product-title">Here Product Title</h3>
-                                                <h4 class="product-old-price">$79.99</h4>
-                                                <h4 class="product-price">$49.99</h4>
-                                        </div>
-                                </div>
-                        </div>
-                
-
-<!-- 
-
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-2" class="single-product">
-                                        <div class="part-1">
-                                                
-                                                <ul>
-                                                        <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-plus"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-expand"></i></a></li>
-                                                </ul>
-                                        </div>
-                                        <div class="part-2">
-                                                <h3 class="product-title">Here Product Title</h3>
-                                                <h4 class="product-price">$49.99</h4>
-                                        </div>
-                                </div>
-                        </div>
-
-
-                     
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-3" class="single-product">
-                                        <div class="part-1">
-                                                <ul>
-                                                        <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-plus"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-expand"></i></a></li>
-                                                </ul>
-                                        </div>
-                                        <div class="part-2">
-                                                <h3 class="product-title">Here Product Title</h3>
-                                                <h4 class="product-old-price">$79.99</h4>
-                                                <h4 class="product-price">$49.99</h4>
-                                        </div>
-                                </div>
-                        </div>
-
-                        
-
-
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-4" class="single-product">
-                                        <div class="part-1">
-                                 
-                                                <ul>
-                                                        <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-plus"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-expand"></i></a></li>
-                                                </ul>
-                                        </div>
-                                        <div class="part-2">
-                                                <h3 class="product-title">Here Product Title</h3>
-                                                <h4 class="product-price">$49.99</h4>
-                                        </div>
-                                </div>
-                        </div> -->
-
-                </div>
-        </div>
-</section>
-  
-  
-  
-  
+    function hideEnlargedDropup(enlargedDropupContent) {
+      enlargedDropupContent.classList.remove('show-enlarged-dropup');
+    }
+  </script>
 </body>
-
 </html>
