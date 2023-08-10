@@ -109,9 +109,6 @@
     .book-button:hover {
       background-color: #0075b3;
     }
-    .room_type{
-        
-    }
 
   </style>
 </head>

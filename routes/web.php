@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\RoomController; // Thêm đoạn này
+
 
 
 
@@ -56,6 +58,10 @@ Route::group(['middleware' => ['isAdmin','auth'],'prefix' => 'admin', 'as' => 'a
 
     Route::get('system_calendars', [\App\Http\Controllers\Admin\SystemCalendarController::class, 'index'])->name('system_calendars.index');
 });
+
+// Thêm đoạn này vào tệp web.php
+Route::post('/book', [BookController::class, 'index'])->name('book');
+Route::post('/rooms/book', [RoomController::class, 'book'])->name('rooms.book');
 
 
 Route::get('images/{filename}', [ImageController::class, 'show']);

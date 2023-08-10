@@ -50,7 +50,7 @@ class RoomController extends Controller
             $file = $request->file('image');
 
         // Store the file in the public disk
-        $path = Storage::disk('public')->putFile('', $file);
+        $path = Storage::disk('public')->put('', $file);
             
             $room->image = $path;
             $room->save();

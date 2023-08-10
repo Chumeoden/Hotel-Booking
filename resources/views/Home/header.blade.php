@@ -36,7 +36,7 @@
                         <p>Room Type</p>
                     </div>
                 </form>
-                <button class="btn"><i class="ri-search-line"></i></button>
+                <a href="{{ route('book') }}" class="btn"><i class="ri-search-line"></i></a>
             </div>
         </div>
     </header>
