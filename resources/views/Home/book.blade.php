@@ -47,7 +47,7 @@
                     <span class="room-price">Price: ${{ $room->price }}</span>
                     <span class="room-capacity">Capacity: {{ $room->capacity }}</span>
                 </div>
-                <form action="{{ route('book') }}" method="POST" style="display: inline;">
+                <form action="{{ route('book') }}">
                     @csrf
                     <input type="hidden" name="room_id" value="{{ $room->id }}">
                     <button type="submit" class="btn btn-success book-button">Đặt Phòng</button>
