@@ -27,8 +27,8 @@
                 <form action="{{ route('admin.categories.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="name">{{ __('Name') }}</label>
-                        <input type="text" class="form-control" id="name" placeholder="{{ __('name') }}" name="name" value="{{ old('name') }}" />
+                        <label for="name">{{ __('Hotel') }}</label>
+                        <input type="text" class="form-control" id="name" placeholder="{{ __('hotel') }}" name="name" value="{{ old('name') }}" />
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">{{ __('Save') }}</button>
                 </form>

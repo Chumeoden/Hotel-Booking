@@ -28,8 +28,8 @@
                     @csrf
                     @method('put')
                     <div class="form-group">
-                        <label for="name">{{ __('Name') }}</label>
-                        <input type="text" class="form-control" id="name" placeholder="{{ __('name') }}" name="name" value="{{ old('name', $category->name) }}" />
+                        <label for="name">{{ __('hotel') }}</label>
+                        <input type="text" class="form-control" id="name" placeholder="{{ __('hotel') }}" name="name" value="{{ old('name', $category->name) }}" />
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">{{ __('Save') }}</button>
                 </form>

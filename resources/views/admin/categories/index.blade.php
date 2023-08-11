@@ -32,7 +32,7 @@
 
                                 </th>
                                 <th>No</th>
-                                <th>Name</th>
+                                <th>Hotel</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

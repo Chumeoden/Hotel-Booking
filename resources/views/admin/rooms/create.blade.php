@@ -27,19 +27,19 @@
             <form action="{{ route('admin.rooms.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
-        <label for="room_number">{{ __('Room Number') }}</label>
-        <input type="text" class="form-control" id="room_number" placeholder="{{ __('room number') }}" name="room_number" value="{{ old('room_number') }}" />
+        <label for="room_number">{{ __('hotelier') }}</label>
+        <input type="text" class="form-control" id="room_number" placeholder="{{ __('hotelier') }}" name="room_number" value="{{ old('room_number') }}" />
     </div>
     <div class="form-group">
         <label for="price">{{ __('Price') }}</label>
         <input type="number" class="form-control" id="price" placeholder="{{ __('price') }}" name="price" value="{{ old('price') }}" />
     </div>
     <div class="form-group">
-        <label for="capacity">{{ __('Capacity') }}</label>
-        <input type="number" class="form-control" id="capacity" placeholder="{{ __('capacity') }}" name="capacity" value="{{ old('capacity') }}" />
+        <label for="capacity">{{ __('Room Number') }}</label>
+        <input type="text" class="form-control" id="capacity" placeholder="{{ __('room number') }}" name="capacity" value="{{ old('capacity') }}" />
     </div>
     <div class="form-group">
-        <label for="category">{{ __('Customer') }}</label>
+        <label for="category">{{ __('Hotel') }}</label>
         <select class="form-control" name="category_id" id="category">
             @foreach($categories as $id => $category)
                 <option value="{{ $id }}">{{ $category }}</option>

@@ -32,11 +32,11 @@
 
                                 </th>
                                 <th>No</th>
-                                <th>Room Number</th>
+                                <th>hotelier</th>
                                 <th>Price</th>
-                                <th>Capacity</th>
+                                <th>Number room</th>
                                 <th>Floor</th>
-                                <th>Customers</th>
+                                <th>Hotel</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
