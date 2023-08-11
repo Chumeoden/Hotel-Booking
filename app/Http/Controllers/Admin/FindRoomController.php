@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Room;
+use App\Models\Category;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class FindRoomController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $time_from = $request->input('time_from');
         $time_to = $request->input('time_to');
 
@@ -24,7 +27,10 @@ class FindRoomController extends Controller
         } else {
             $rooms = [];
         }
-        
-        return view('admin.find_rooms.index', compact('rooms', 'time_from', 'time_to'));
+
+        $categories = Category::all();
+        $customers = Customer::all();
+
+        return view('admin.find_rooms.index', compact('rooms', 'categories', 'customers', 'time_from', 'time_to'));
     }
 }
