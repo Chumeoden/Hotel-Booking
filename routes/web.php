@@ -56,7 +56,16 @@ Route::group(['middleware' => ['isAdmin','auth'],'prefix' => 'admin', 'as' => 'a
     Route::post('find_rooms', [\App\Http\Controllers\Admin\FindRoomController::class, 'index']);
 
     Route::get('system_calendars', [\App\Http\Controllers\Admin\SystemCalendarController::class, 'index'])->name('system_calendars.index');
+    
+
+Route::get('/find_rooms', [\App\Http\Controllers\Admin\FindRoomController::class, 'index'])->name('find_rooms.index');
+Route::post('/find_rooms', [\App\Http\Controllers\Admin\FindRoomController::class, 'index']);
+Route::get('/find_rooms/search-category', [\App\Http\Controllers\Admin\FindRoomController::class, 'searchCategory'])->name('find_rooms.search-category');
+Route::get('/find_rooms/search-customer', [\App\Http\Controllers\Admin\FindRoomController::class, 'searchCustomer'])->name('find_rooms.search-customer');
 });
+
+
+
 
 // Thêm đoạn này vào tệp web.php
 Route::get('/book', [BookController::class, 'index'])->name('book');

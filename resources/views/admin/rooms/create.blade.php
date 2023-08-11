@@ -27,8 +27,8 @@
             <form action="{{ route('admin.rooms.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
-        <label for="room_number">{{ __('hotelier') }}</label>
-        <input type="text" class="form-control" id="room_number" placeholder="{{ __('hotelier') }}" name="room_number" value="{{ old('room_number') }}" />
+        <label for="room_number">{{ __('capacity ') }}</label>
+        <input type="text" class="form-control" id="room_number" placeholder="{{ __('capacity ') }}" name="room_number" value="{{ old('room_number') }}" />
     </div>
     <div class="form-group">
         <label for="price">{{ __('Price') }}</label>

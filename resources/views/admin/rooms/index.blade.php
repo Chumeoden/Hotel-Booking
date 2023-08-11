@@ -32,7 +32,7 @@
 
                                 </th>
                                 <th>No</th>
-                                <th>hotelier</th>
+                                <th>Capacity </th>
                                 <th>Price</th>
                                 <th>Number room</th>
                                 <th>Floor</th>

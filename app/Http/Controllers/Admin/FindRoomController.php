@@ -1,36 +1,47 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Room;
-use App\Models\Category;
-use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Customer;
 
 class FindRoomController extends Controller
 {
     public function index(Request $request)
     {
-        $time_from = $request->input('time_from');
-        $time_to = $request->input('time_to');
-
-        if ($request->isMethod('POST')) {
-            $rooms = Room::with('booking')->whereHas('booking', function ($q) use ($time_from, $time_to) {
-                $q->where(function ($q2) use ($time_from, $time_to) {
-                    $q2->where('time_from', '>=', $time_to)
-                       ->orWhere('time_to', '<=', $time_from)
-                       ->orWhere('status', 'completed')
-                       ->orWhere('status', 'cancelled');
-                });
-            })->orWhereDoesntHave('booking')->get();
-        } else {
-            $rooms = [];
-        }
-
         $categories = Category::all();
         $customers = Customer::all();
+        $selectedCategory = $request->input('category_search');
+        $selectedCustomer = $request->input('customer_search');
 
-        return view('admin.find_rooms.index', compact('rooms', 'categories', 'customers', 'time_from', 'time_to'));
+        // Thực hiện logic tìm phòng dựa trên $selectedCategory và $selectedCustomer
+
+        return view('admin.find_rooms.index', compact('categories', 'customers', 'selectedCategory', 'selectedCustomer'));
     }
+
+    public function searchCategory(Request $request)
+    {
+        $searchTerm = $request->input('category_search');
+    
+        $categories = Category::where('name', 'like', '%' . $searchTerm . '%')->get();
+    
+        $customers = Customer::all(); // Đảm bảo truy vấn tất cả khách hàng ở đây
+    
+        return view('admin.find_rooms.index', compact('categories', 'customers'));
+    }
+    
+    public function searchCustomer(Request $request)
+    {
+        $searchTerm = $request->input('customer_search');
+    
+        $customers = Customer::where('last_name', 'like', '%' . $searchTerm . '%')->get();
+    
+        $categories = Category::all(); // Đảm bảo truy vấn tất cả danh mục ở đây
+    
+        return view('admin.find_rooms.index', compact('customers', 'categories'));
+    }
+    
+    
+    
 }
