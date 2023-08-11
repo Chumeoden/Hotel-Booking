@@ -36,7 +36,7 @@
                                 <th>Price</th>
                                 <th>Capacity</th>
                                 <th>Floor</th>
-                                <th>Category</th>
+                                <th>Customers</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

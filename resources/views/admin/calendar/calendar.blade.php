@@ -12,14 +12,6 @@
             <form>
                 <div class="row">
                     <div class="col-md-5">
-                        <div class="form-group">
-                            <label for="room_id">Room</label>
-                            <select class="form-control select2" name="room_id" id="room_id">
-                                @foreach($rooms as $id => $room)
-                                    <option value="{{ $id }}" {{ request()->input('room_id') == $id ? 'selected' : '' }}>{{ $room }}</option>
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
                     <div class="col-md-5">
                         <div class="form-group">
@@ -33,7 +25,7 @@
                     </div>
                     <div class="col-md-2">
                         <button class="btn btn-primary mt-4">
-                            Filter
+                            Search
                         </button>
                     </div>
                 </div>

@@ -1,26 +1,7 @@
 @extends('layouts.app')
 
 @section('styles')
-<style>
-    .room-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-    }
-    
-    .room-card {
-        width: 25%;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-    
-    .book-button {
-        margin-top: 10px;
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
-</style>
+
 @endsection
 
 @section('content')
@@ -33,19 +14,40 @@
         {{ session('success') }}
     </div>
     @endif
-
+    <style>
+    .room-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    
+    .room-card {
+        width: 25%;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex; /* Thêm dòng này để các phòng nằm ngang */
+        flex-direction: column; /* Thêm dòng này để các thông tin nằm dưới hình ảnh */
+    }
+    
+    .book-button {
+        margin-top: 10px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+</style>
     <!-- Room Listing -->
-    <div class="room_type"><h2>Hot Rooms</h2></div>
+    <div class="room_type"><h2>Phòng Hot</h2></div>
     <div class="room-container">
         @foreach ($rooms as $room)
             <div class="room-card" onclick="showModel(this)">
-                <img src="{{ asset('storage/' . $room->image) }}" alt="Room Image">
+                <img src="{{ asset('storage/' . $room->image) }}" alt="Hình ảnh phòng">
                 <div class="room-info">
-                    <span class="room-number">Room number: {{ $room->room_number }}</span>
-                    <span class="room-floor">Floor: {{ $room->floor }}</span>
-                    <p class="room-description">Description: {{ $room->description }}</p>
-                    <span class="room-price">Price: ${{ $room->price }}</span>
-                    <span class="room-capacity">Capacity: {{ $room->capacity }}</span>
+                    <span class="room-number">Số phòng: {{ $room->room_number }}</span>
+                    <span class="room-floor">Tầng: {{ $room->floor }}</span>
+                    <p class="room-description">Mô tả: {{ $room->description }}</p>
+                    <span class="room-price">Giá: ${{ $room->price }}</span>
+                    <span class="room-capacity">Sức chứa: {{ $room->capacity }}</span>
                 </div>
                 <form action="{{ route('book') }}">
                     @csrf

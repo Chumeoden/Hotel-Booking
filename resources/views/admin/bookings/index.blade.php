@@ -32,8 +32,8 @@
 
                                 </th>
                                 <th>No</th>
+                                <th>full name</th>
                                 <th>Customer</th>
-                                <th>Room</th>
                                 <th>Time From</th>
                                 <th>Time To</th>
                                 <th>Status</th>
@@ -48,7 +48,7 @@
                                 </td>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $booking->customer->full_name }}</td>
-                                <td>{{ $booking->room->room_number }}</td>
+                                <td>{{ $booking->room->category->name }}</td>
                                 <td>{{ $booking->time_from }}</td>
                                 <td>{{ $booking->time_to }}</td>
                                 <td>{{ $booking->status }}</td>

@@ -39,7 +39,7 @@
         <input type="number" class="form-control" id="capacity" placeholder="{{ __('capacity') }}" name="capacity" value="{{ old('capacity') }}" />
     </div>
     <div class="form-group">
-        <label for="category">{{ __('Category') }}</label>
+        <label for="category">{{ __('Customer') }}</label>
         <select class="form-control" name="category_id" id="category">
             @foreach($categories as $id => $category)
                 <option value="{{ $id }}">{{ $category }}</option>
